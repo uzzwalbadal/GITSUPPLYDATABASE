@@ -15,5 +15,6 @@ namespace supplyc.SupplyChains.CustomerInformation.Customers
         public string Type { get; set; }
         public string Location { get; set; }
         public int Contact { get; set; }
+        public int CustomerTypeId { get; set; }
     }
 }

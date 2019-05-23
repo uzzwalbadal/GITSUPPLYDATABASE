@@ -1045,6 +1045,8 @@ namespace supplyc.Migrations
 
                     b.Property<long?>("CreatorUserId");
 
+                    b.Property<int>("CustomerTypeId");
+
                     b.Property<long?>("DeleterUserId");
 
                     b.Property<DateTime?>("DeletionTime");
@@ -1062,6 +1064,8 @@ namespace supplyc.Migrations
                     b.Property<string>("Type");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerTypeId");
 
                     b.ToTable("Supply_Customers");
                 });
@@ -1316,6 +1320,70 @@ namespace supplyc.Migrations
                     b.ToTable("Supply_SupplyStockOuts");
                 });
 
+            modelBuilder.Entity("supplyc.Entity.SupplyTransactions.Supplytransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount");
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<long?>("CreatorUserId");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<long?>("DeleterUserId");
+
+                    b.Property<DateTime?>("DeletionTime");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime");
+
+                    b.Property<long?>("LastModifierUserId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("SupplytransactiontypeId");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SupplytransactiontypeId");
+
+                    b.ToTable("Supply_Supplytransaction");
+                });
+
+            modelBuilder.Entity("supplyc.Entity.SupplyTransactions.Supplytransactiontype", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<long?>("CreatorUserId");
+
+                    b.Property<long?>("DeleterUserId");
+
+                    b.Property<DateTime?>("DeletionTime");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime");
+
+                    b.Property<long?>("LastModifierUserId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Supply_Supplytransactiontype");
+                });
+
             modelBuilder.Entity("supplyc.MultiTenancy.Tenant", b =>
                 {
                     b.Property<int>("Id")
@@ -1516,6 +1584,14 @@ namespace supplyc.Migrations
                         .HasForeignKey("LastModifierUserId");
                 });
 
+            modelBuilder.Entity("supplyc.Entity.Customers.Customer", b =>
+                {
+                    b.HasOne("supplyc.Entity.Customers.CustomerType", "CustomerType")
+                        .WithMany()
+                        .HasForeignKey("CustomerTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("supplyc.Entity.Products.Product", b =>
                 {
                     b.HasOne("supplyc.Entity.Products.ProductType", "ProductType")
@@ -1534,6 +1610,14 @@ namespace supplyc.Migrations
                     b.HasOne("supplyc.Entity.Purchase.Purchase", "Purchase")
                         .WithMany()
                         .HasForeignKey("PurchaseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("supplyc.Entity.SupplyTransactions.Supplytransaction", b =>
+                {
+                    b.HasOne("supplyc.Entity.SupplyTransactions.Supplytransactiontype", "Supplytransactiontype")
+                        .WithMany()
+                        .HasForeignKey("SupplytransactiontypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

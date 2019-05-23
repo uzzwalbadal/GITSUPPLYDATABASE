@@ -9,6 +9,9 @@ using supplyc.Entity.Stocks.Batchs;
 using supplyc.Entity.Stocks.StockIs;
 using supplyc.Entity.Stocks.StockOs;
 using supplyc.Entity.Customers;
+using System.Transactions;
+
+using supplyc.Entity.SupplyTransactions;
 
 namespace supplyc.EntityFrameworkCore
 {
@@ -30,6 +33,11 @@ namespace supplyc.EntityFrameworkCore
         public DbSet<SupplyStockOutt> SupplyStockOutts { get; set; }
         public DbSet<CustomerType> CustomerTypes { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Supplytransaction> Supplytransactions { get; set; }
+        public DbSet<Supplytransactiontype> Supplytransactiontypes { get; set; }
+
+
+
 
     }
 }
